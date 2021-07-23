@@ -35,7 +35,6 @@ class TelegramController extends Controller
      */
     public function beforeAction($action)
     {
-        // TODO: Get config depending on application environment
         $this->config = require 'console/config/main-local.php';
 
         return parent::beforeAction($action);
