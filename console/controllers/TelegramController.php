@@ -1,9 +1,11 @@
 <?php
 namespace console\controllers;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
+use yii\helpers\Console;
 
 class TelegramController extends Controller
 {
@@ -65,10 +67,16 @@ class TelegramController extends Controller
      */
     public function actionSend()
     {
-        Yii::$app->telegram->sendMessage([
-            'chat_id' => $this->user,
-            'text' => $this->message,
-        ]);
+        try {
+            Yii::$app->telegram->sendMessage([
+                'chat_id' => $this->user,
+                'text' => $this->message,
+            ]);
+        } catch (GuzzleException $exception) {
+            // TODO: Get the bot username from config
+            $this->stdout("Error\n", Console::FG_RED);
+            echo "Try to contact the bot (https://t.me/abdc12356_test_bot) first";
+        }
 
         echo "Message: `$this->message` is sent!" . PHP_EOL;
 
