@@ -24,6 +24,23 @@ class TelegramController extends Controller
     public $user = '1625235465';
 
     /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * @param \yii\base\Action $action
+     * @return bool
+     */
+    public function beforeAction($action)
+    {
+        $this->config = require 'console/config/main-local.php';
+
+        return parent::beforeAction($action);
+    }
+
+
+    /**
      * Returns the names of valid options for the action (id)
      * An option requires the existence of a public member variable whose
      * name is the option name.
@@ -73,8 +90,7 @@ class TelegramController extends Controller
                 'text' => $this->message,
             ]);
         } catch (GuzzleException $exception) {
-            $config = require 'console/config/main-local.php';
-            $botUsername = $config['components']['telegram']['botUsername'];
+            $botUsername = $this->config['components']['telegram']['botUsername'];
 
             $this->stdout("Error\n", Console::FG_RED);
             echo "Try to contact the bot (https://t.me/$botUsername) first";
