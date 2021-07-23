@@ -73,9 +73,11 @@ class TelegramController extends Controller
                 'text' => $this->message,
             ]);
         } catch (GuzzleException $exception) {
-            // TODO: Get the bot username from config
+            $config = require 'console/config/main-local.php';
+            $botUsername = $config['components']['telegram']['botUsername'];
+
             $this->stdout("Error\n", Console::FG_RED);
-            echo "Try to contact the bot (https://t.me/abdc12356_test_bot) first";
+            echo "Try to contact the bot (https://t.me/$botUsername) first";
         }
 
         echo "Message: `$this->message` is sent!" . PHP_EOL;
