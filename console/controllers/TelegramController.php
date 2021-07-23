@@ -24,13 +24,14 @@ class TelegramController extends Controller
     public $user = '1625235465';
 
     /**
+     * Console app configuration.
+     *
      * @var array
      */
     private $config;
 
     /**
-     * @param \yii\base\Action $action
-     * @return bool
+     * {@inheritdoc}
      */
     public function beforeAction($action)
     {
