@@ -93,10 +93,13 @@ class TelegramController extends Controller
             $botUsername = $this->config['components']['telegram']['botUsername'];
 
             $this->stdout("Error\n", Console::FG_RED);
-            echo "Try to contact the bot (https://t.me/$botUsername) first";
+            echo "Try to contact the bot (https://t.me/$botUsername) first." . PHP_EOL;
+
+            return ExitCode::UNSPECIFIED_ERROR;
         }
 
-        echo "Message: `$this->message` is sent!" . PHP_EOL;
+        $this->stdout("Success\n", Console::FG_GREEN);
+        echo "Message: `$this->message` is sent to user ID `$this->user`!" . PHP_EOL;
 
         return ExitCode::OK;
     }
