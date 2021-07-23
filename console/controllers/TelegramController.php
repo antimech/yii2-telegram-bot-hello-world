@@ -35,23 +35,14 @@ class TelegramController extends Controller
      */
     public function beforeAction($action)
     {
+        // TODO: Get config depending on application environment
         $this->config = require 'console/config/main-local.php';
 
         return parent::beforeAction($action);
     }
 
-
     /**
-     * Returns the names of valid options for the action (id)
-     * An option requires the existence of a public member variable whose
-     * name is the option name.
-     * Child classes may override this method to specify possible options.
-     *
-     * Note that the values setting via options are not available
-     * until [[beforeAction()]] is being called.
-     *
-     * @param string $actionID the action id of the current request
-     * @return string[] the names of the options valid for the action
+     * {@inheritdoc}
      */
     public function options($actionID)
     {
@@ -60,14 +51,7 @@ class TelegramController extends Controller
     }
 
     /**
-     * Returns option alias names.
-     * Child classes may override this method to specify alias options.
-     *
-     * @return array the options alias names valid for the action
-     * where the keys is alias name for option and value is option name.
-     *
-     * @since 2.0.8
-     * @see options()
+     * {@inheritdoc}
      */
     public function optionAliases()
     {
