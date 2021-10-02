@@ -29,15 +29,15 @@ class TelegramController extends Controller
     /**
      * Sends a message to a Telegram user.
      *
-     * @param int $user The user ID to get send the message
+     * @param int $chatId The chat ID where to send
      * @param string $message The message to send
      * @return int
      */
-    public function actionSend($user, $message)
+    public function actionSend($chatId, $message)
     {
         try {
             Yii::$app->telegram->sendMessage([
-                'chat_id' => $user,
+                'chat_id' => $chatId,
                 'text' => $message,
             ]);
         } catch (GuzzleException $exception) {
@@ -50,7 +50,7 @@ class TelegramController extends Controller
         }
 
         $this->stdout("Success\n", Console::FG_GREEN);
-        echo "Message: `$message` is sent to user ID `$user`!" . PHP_EOL;
+        echo "Message: `$message` is sent to user ID `$chatId`!" . PHP_EOL;
 
         return ExitCode::OK;
     }
