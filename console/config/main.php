@@ -30,11 +30,6 @@ return [
                 ],
             ],
         ],
-        'telegram' => [
-            'class' => 'aki\telegram\Telegram',
-            'botToken' => '<specify_bot_token_here>',
-            'botUsername' => '<specify_bot_username_here>'
-        ],
     ],
     'params' => $params,
 ];
