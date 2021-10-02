@@ -10,20 +10,6 @@ use yii\helpers\Console;
 class TelegramController extends Controller
 {
     /**
-     * The message to send.
-     *
-     * @var string
-     */
-    public $message = 'Hello, World!';
-
-    /**
-     * The user ID to get send the message.
-     *
-     * @var string
-     */
-    public $user = '1625235465';
-
-    /**
      * Console app configuration.
      *
      * @var array
@@ -41,37 +27,18 @@ class TelegramController extends Controller
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function options($actionID)
-    {
-        // $actionId might be used in subclasses to provide options specific to action id
-        return ['message', 'user', 'color', 'interactive', 'help', 'silentExitOnException'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function optionAliases()
-    {
-        return [
-            'm' => 'message',
-            'u' => 'user',
-            'h' => 'help',
-        ];
-    }
-
-    /**
      * Sends a message to a Telegram user.
      *
+     * @param string $message The message to send
+     * @param int $user The user ID to get send the message
      * @return int
      */
-    public function actionSend()
+    public function actionSend($message, $user)
     {
         try {
             Yii::$app->telegram->sendMessage([
-                'chat_id' => $this->user,
-                'text' => $this->message,
+                'chat_id' => $user,
+                'text' => $message,
             ]);
         } catch (GuzzleException $exception) {
             $botUsername = $this->config['components']['telegram']['botUsername'];
@@ -83,7 +50,7 @@ class TelegramController extends Controller
         }
 
         $this->stdout("Success\n", Console::FG_GREEN);
-        echo "Message: `$this->message` is sent to user ID `$this->user`!" . PHP_EOL;
+        echo "Message: `$message` is sent to user ID `$user`!" . PHP_EOL;
 
         return ExitCode::OK;
     }
