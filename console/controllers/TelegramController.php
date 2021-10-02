@@ -10,23 +10,6 @@ use yii\helpers\Console;
 class TelegramController extends Controller
 {
     /**
-     * Console app configuration.
-     *
-     * @var array
-     */
-    private $config;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeAction($action)
-    {
-        $this->config = require 'console/config/main-local.php';
-
-        return parent::beforeAction($action);
-    }
-
-    /**
      * Sends a message to a Telegram user.
      *
      * @param int $chatId The chat ID where to send
@@ -41,7 +24,7 @@ class TelegramController extends Controller
                 'text' => $message,
             ]);
         } catch (GuzzleException $exception) {
-            $botUsername = $this->config['components']['telegram']['botUsername'];
+            $botUsername = Yii::$app->components['telegram']['botUsername'];
 
             $this->stderr("Error\n", Console::FG_RED);
             echo "Try to contact the bot (https://t.me/$botUsername) first." . PHP_EOL;
