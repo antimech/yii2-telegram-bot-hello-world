@@ -29,11 +29,11 @@ class TelegramController extends Controller
     /**
      * Sends a message to a Telegram user.
      *
-     * @param string $message The message to send
      * @param int $user The user ID to get send the message
+     * @param string $message The message to send
      * @return int
      */
-    public function actionSend($message, $user)
+    public function actionSend($user, $message)
     {
         try {
             Yii::$app->telegram->sendMessage([
