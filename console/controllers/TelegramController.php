@@ -76,7 +76,7 @@ class TelegramController extends Controller
         } catch (GuzzleException $exception) {
             $botUsername = $this->config['components']['telegram']['botUsername'];
 
-            $this->stdout("Error\n", Console::FG_RED);
+            $this->stderr("Error\n", Console::FG_RED);
             echo "Try to contact the bot (https://t.me/$botUsername) first." . PHP_EOL;
 
             return ExitCode::UNSPECIFIED_ERROR;
